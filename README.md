@@ -45,3 +45,22 @@ Internally, the application uses
 [`urllib.parse.urljoin`](https://docs.python.org/3.5/library/urllib.parse.html#urllib.parse.urljoin) to join
 URLs. Thus, if your `BASE_PATH` configuration does not end with a '/', you will get incorrect results. See
 [this](http://stackoverflow.com/a/10893427/602002) for more information.
+
+
+## Docker
+The Docker image, by default, declars a volume `/usr/src/app/config` and expects a configuration file
+`config.ini` inside.
+
+You can run the image using a simple `docker-compose.yml` file
+
+```yml
+version: "2.0"
+services:
+  redirector:
+    build: .
+    ports:
+      - 5000:5000
+    volumes:
+      - ./config:/usr/src/app/config
+
+```
