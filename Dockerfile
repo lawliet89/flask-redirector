@@ -10,4 +10,4 @@ COPY . /usr/src/app/
 
 EXPOSE 5000
 ENTRYPOINT ["/usr/src/app/manager.py"]
-CMD ["-c", "/usr/src/app/config/config.ini", "runserver", "-h", "0.0.0.0"]
+CMD ["-c", "/usr/src/app/config/config.ini", "gunicorn", "-b", "0.0.0.0:5000"]
