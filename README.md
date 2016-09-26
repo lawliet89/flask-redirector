@@ -1,4 +1,4 @@
-# Flask Redirector
+# Flask Redirector [![Build Status](https://api.travis-ci.org/lawliet89/flask-redirector.svg?branch=master)](https://travis-ci.org/lawliet89/flask-redirector)
 A simple Flask application to redirect URLs to another domain.
 
 ## Configuration
