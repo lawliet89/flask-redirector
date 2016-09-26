@@ -4,11 +4,11 @@ A simple Flask application to redirect URLs to another domain.
 ## Configuration
 An example configuration file:
 ```ini
-SCHEME = 'https'
-HOST = 'www.example.com'
-BASE_PATH = '/'
-PORT = 443
-REDIRECT_CODE = 301
+REDIRECTOR_SCHEME = 'https'
+REDIRECTOR_HOST = 'www.example.com'
+REDIRECTOR_BASE_PATH = '/'
+REDIRECTOR_PORT = 443
+REDIRECTOR_REDIRECT_CODE = 301
 ```
 
 Then, start the server with `./manager.py -c file.ini runserver`
