@@ -5,26 +5,31 @@
 """
 import os
 import sys
+import redirector.config
 from flask import current_app
 from flask_script import Manager, Command, Option
 from gunicorn.app.base import BaseApplication
 from gunicorn.config import make_settings
 from redirector import create_app
 
+
 manager = Manager(create_app)  # pylint: disable=invalid-name
 
-manager.add_option('-c', '--config-file', dest='CONFIG_FILE', required=False,
-    help="Provide a path to an ini file for configuration")
-manager.add_option('--scheme', dest='SCHEME', required=False, choices=['http', 'https'],
-    help="The scheme to redirect users to")
-manager.add_option('--host', dest='HOST', required=False,
-    help="The HTTP Host to redirect users to")
-manager.add_option('--base-path', dest='BASE_PATH', required=False,
-    help="The base path to redirect users to")
-manager.add_option('--port', dest='PORT', required=False, type=int,
-    help="The port to redirect users to")
-manager.add_option('--redirect-code', dest='REDIRECT_CODE', required=False, type=int,
-    help="The HTTP redirect code for use in redirecting")
+for _, setting in redirector.config.make_settings().items():
+    cli = []
+    if setting.cli is not None:
+        cli = setting.cli
+
+    kwargs = {
+        'dest': setting.name.upper(),
+        'required': setting.required,
+        'type': setting.type,
+        'help': setting.help,
+        'choices': setting.choices,
+        'default': setting.default
+    }
+    manager.add_option(*cli, **kwargs)
+
 
 class GunicornApplication(BaseApplication):
     def __init__(self, app, options=None):
