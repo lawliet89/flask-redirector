@@ -25,8 +25,7 @@ for _, setting in redirector.config.make_settings().items():
         'required': setting.required,
         'type': setting.type,
         'help': setting.help,
-        'choices': setting.choices,
-        'default': setting.default
+        'choices': setting.choices
     }
     manager.add_option(*cli, **kwargs)
 
